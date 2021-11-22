@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% for message in get_flashed_messages() %}
+
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+
+    {% endfor %}
+
+
+    <h2>Dashboard</h2>
+
+    <br><br>
+
+    <h3>Enrolled Courses:</h3>
+    {% if current_user.enrolled_courses|length > 0 %}
+        <ul class="list-group">
+            {% for course in current_user.enrolled_courses %}
+                <li class="list-group-item">
+                    {{ course.name }}<br/>
+                    Grade: {{ course.grade }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        No enrolled courses.
+    {% endif %}
+
+    <br><br>
+
+    <h3>Instructed Courses:</h3>
+    {% if current_user.instructed_courses|length > 0 %}
+        <ul class="list-group">
+            {% for course in current_user.instructed_courses %}
+                <li class="list-group-item">
+                    {{ course.name }}
+                    <br/>
+                    Rating: {{ course.rating }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        No instructed courses.
+    {% endif %}
+
+{% endblock %}

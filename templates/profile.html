@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% for message in get_flashed_messages() %}
+
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+
+    {% endfor %}
+
+
+    <h2>My Profile</h2>
+
+    <br><br>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ current_user.full_name }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ current_user.email }}</h6>
+            <p class="card-text">Roles:
+                {% for role in current_user.roles %}
+                    {{ role }}&nbsp;
+                {% endfor %}
+            </p>
+            <p class="card-text">Data of Birth: {{ current_user.date_of_birth }}</p>
+            {% if current_user.is_instructor %}
+                <p class="card-text">Hire Date: {{ current_user.instructor.hire_date }}</p>
+            {% endif %}
+
+            {% if current_user.is_student %}
+                <p class="card-text">Major: {{ current_user.student.major }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
